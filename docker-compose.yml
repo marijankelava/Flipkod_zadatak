@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  myb_db:
+  flipkod_zadatak_db:
     image: mysql:5.7
     command: --default-authentication-plugin=mysql_native_password
     restart: always
@@ -16,7 +16,7 @@ services:
     networks:
       - flipkod_zadatak_rest
 
-  web:
+  flipkod_zadatak_web:
     build:
       context: .docker-config/web
     volumes:
