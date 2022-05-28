@@ -7,6 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query;
 
 /**
  * @extends ServiceEntityRepository<Circle>
@@ -75,4 +76,18 @@ class CircleRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    //Circle controller function
+    public function getCircles($id)
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        /*$qb->addSelect('c')
+            ->andWhere('c.id = :id')
+            ->setParameter('id', $id);*/
+        
+        return $qb->getQuery()->getResult(Query::HYDRATE_ARRAY);
+
+        //return $qb->setMaxResults($parameters['per_page'])->setFirstResult(0)->getQuery()->getResult(Query::HYDRATE_ARRAY);
+    }
 }

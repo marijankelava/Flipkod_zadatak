@@ -9,20 +9,23 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Circle;
+use App\Repository\CircleRepository;
 
 class CircleController extends AbstractController
 {
     private $em;
+    private $circleRepository;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(CircleRepository $circleRepository, EntityManagerInterface $em)
     {
         $this->em = $em;
+        $this->circleRepository = $circleRepository;
     }
     
     /**
      * @Route("/circle/{radius}", name="app_circle", defaults={"radius"=null}, methods={"GET"})
      */
-    public function createData(Request $request) : JsonResponse
+    public function createCircle(Request $request) : JsonResponse
     {
         $parameters = $request->query->all();
 
@@ -30,7 +33,7 @@ class CircleController extends AbstractController
 
         if (isset($parameters['radius'])) {
             $radius = $parameters['radius'];
-        } 
+        }
         
         $circle = new Circle();
         $circle->setRadius($radius);
@@ -45,4 +48,18 @@ class CircleController extends AbstractController
             'Saved new circle with radius value' => $radius
         ]);
     }
+
+    /**
+     * @Route("/history/circle/{id}", name="history_circle", defaults={"id"=null}, methods={"GET"})
+     */
+    public function getCircle($id) : JsonResponse
+    {
+        $circle = $this->circleRepository->getCircles($id);
+
+        //dd($circle);
+
+        return $this->json([
+            'circle' => $circle
+        ]);
+    }   
 }
