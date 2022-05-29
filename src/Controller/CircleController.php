@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Circle;
 use App\Repository\CircleRepository;
+use App\Services\TriangleService;
 
 class CircleController extends AbstractController
 {
@@ -29,16 +30,15 @@ class CircleController extends AbstractController
     {
         $parameters = $request->query->all();
 
-        $radius = null;
-
-        if (isset($parameters['radius'])) {
-            $radius = $parameters['radius'];
+        if (!isset($parameters['radius'])) {
+            echo "Please enter radius value";
+            exit;
         }
+
+        $radius = $parameters['radius'];
         
         $circle = new Circle();
         $circle->setRadius($radius);
-
-        //dd($circle);
 
         $this->em->persist($circle);
 
