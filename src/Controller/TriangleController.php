@@ -60,8 +60,6 @@ class TriangleController extends AbstractController
     {
         $triangle = $this->triangleRepository->getTriangles($id);
 
-        //dd($triangle);
-
         return $this->json([
             'triangle' => $triangle
         ]);

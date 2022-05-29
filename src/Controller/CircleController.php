@@ -55,8 +55,6 @@ class CircleController extends AbstractController
     {
         $circle = $this->circleRepository->getCircles($id);
 
-        //dd($circle);
-
         return $this->json([
             'circle' => $circle
         ]);

@@ -82,9 +82,15 @@ class TriangleRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('t');
 
-        $qb->addSelect('t')
-            ->andWhere('t.id = :id')
-            ->setParameter('id', $id);
+        if (!isset($id)) {
+            $qb->addSelect('t');
+        }
+    
+        if (isset($id)) {
+            $qb->addSelect('t')
+               ->andWhere('t.id = :id')
+               ->setParameter('id', $id);  
+        }
         
         return $qb->getQuery()->getResult(Query::HYDRATE_ARRAY);
 
