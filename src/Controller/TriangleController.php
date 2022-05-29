@@ -52,4 +52,18 @@ class TriangleController extends AbstractController
             'Saved new triangle with sides' => [$a, $b, $c]
         ]);
     }
+
+    /**
+     * @Route("/history/triangle/{id}", name="history_triangle", defaults={"id"=null}, methods={"GET"})
+     */
+    public function getTriangle($id) : JsonResponse
+    {
+        $triangle = $this->triangleRepository->getTriangles($id);
+
+        //dd($triangle);
+
+        return $this->json([
+            'triangle' => $triangle
+        ]);
+    }   
 }

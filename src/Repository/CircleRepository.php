@@ -82,9 +82,15 @@ class CircleRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('c');
 
-        $qb->addSelect('c')
-            ->andWhere('c.id = :id')
-            ->setParameter('id', $id);
+        if (!isset($id)) {
+            $qb->addSelect('c');
+        }
+
+        if (isset($id)) {
+              $qb->addSelect('c')
+                 ->andWhere('c.id = :id')
+                 ->setParameter('id', $id);  
+        }
         
         return $qb->getQuery()->getResult(Query::HYDRATE_ARRAY);
 

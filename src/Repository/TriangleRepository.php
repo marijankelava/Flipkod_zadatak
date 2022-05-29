@@ -7,6 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query;
 
 /**
  * @extends ServiceEntityRepository<Triangle>
@@ -75,4 +76,18 @@ class TriangleRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    //Triangle controller function
+    public function getTriangles($id)
+    {
+        $qb = $this->createQueryBuilder('t');
+
+        $qb->addSelect('t')
+            ->andWhere('t.id = :id')
+            ->setParameter('id', $id);
+        
+        return $qb->getQuery()->getResult(Query::HYDRATE_ARRAY);
+
+        //return $qb->setMaxResults($parameters['per_page'])->setFirstResult(0)->getQuery()->getResult(Query::HYDRATE_ARRAY);
+    }
 }
