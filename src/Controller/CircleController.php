@@ -41,7 +41,6 @@ class CircleController extends AbstractController
         $circle->setRadius($radius);
 
         $this->em->persist($circle);
-
         $this->em->flush();
 
         return $this->json([
