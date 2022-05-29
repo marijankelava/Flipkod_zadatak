@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Circle;
 use App\Repository\CircleRepository;
-use App\Services\TriangleService;
+use App\Services\CircleService;
 
 class CircleController extends AbstractController
 {
@@ -43,20 +43,32 @@ class CircleController extends AbstractController
         $this->em->persist($circle);
         $this->em->flush();
 
+        $circumference = CircleService::circumference($radius);
+        $area = CircleService::area($radius);
+
         return $this->json([
-            'Saved new circle with radius value' => $radius
+            'Saved new circle with radius value' => $radius,
+            'circumference' => $circumference,
+            'area' => $area
         ]);
     }
 
     /**
      * @Route("/history/circle/{id}", name="history_circle", defaults={"id"=null}, methods={"GET"})
      */
-    public function getCircle($id) : JsonResponse
+    public function getCircle(CircleService $radius, $id) : JsonResponse
     {
         $circle = $this->circleRepository->getCircles($id);
 
+        $radius = $circle[0]['radius'];
+
+        $circumference = CircleService::circumference($radius);
+        $area = CircleService::area($radius);
+
         return $this->json([
-            'circle' => $circle
+            'circle' => $circle,
+            'circumference' => $circumference,
+            'area' => $area
         ]);
     }   
 }
