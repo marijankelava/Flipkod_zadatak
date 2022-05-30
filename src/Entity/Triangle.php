@@ -32,6 +32,13 @@ class Triangle
      */
     private $c;
 
+    public function __construct(float $a, float $b, float $c)
+    {
+        $this->a = $a;
+        $this->b = $b;
+        $this->c = $c;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -72,4 +79,20 @@ class Triangle
 
         return $this;
     }
+
+    public function circumference() : float
+	{
+		$circumference = $this->a + $this->b + $this->c;
+
+		return $circumference;
+	}
+
+    public function area() : float
+	{
+		$s = ($this->a + $this->b + $this->c)/2;
+
+		$area = sqrt($s*($s-$this->a)*($s-$this->b)*($s-$this->c));
+
+		return $area;
+	}
 }

@@ -22,6 +22,11 @@ class Circle
      */
     private $radius;
 
+    public function __construct(float $radius)
+    {
+        $this->radius = $radius;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -38,4 +43,20 @@ class Circle
 
         return $this;
     }
+
+	public function circumference() : float
+	{
+
+		$circumference = 2 * pi() * $this->radius;
+
+		return $circumference;
+	}
+
+    public function area() : float
+	{
+		$area = pi() * pow($this->radius, 2);
+
+		return $area;
+	}
+
 }

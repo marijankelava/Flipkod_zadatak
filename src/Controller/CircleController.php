@@ -36,8 +36,21 @@ class CircleController extends AbstractController
         }
 
         $radius = $parameters['radius'];
-        
-        $circle = new Circle();
+
+        $circle = new Circle($radius);
+        $circumference = $circle->circumference();
+        $area = $circle->area();
+
+        $this->em->persist($circle);
+        $this->em->flush();
+
+        return $this->json([
+            'Saved new circle with radius value' => $radius,
+            'circumference' => $circumference,
+            'area' => $area
+        ]);
+
+         /*$circle = new Circle();
         $circle->setRadius($radius);
 
         $this->em->persist($circle);
@@ -50,7 +63,7 @@ class CircleController extends AbstractController
             'Saved new circle with radius value' => $radius,
             'circumference' => $circumference,
             'area' => $area
-        ]);
+        ]);*/
     }
 
     /**
@@ -62,13 +75,24 @@ class CircleController extends AbstractController
 
         $radius = $circle[0]['radius'];
 
-        $circumference = CircleService::circumference($radius);
+        $circle = new Circle($radius);
+        $circumference = $circle->circumference();
+        $area = $circle->area();
+
+        return $this->json([
+            'circle' => $circle,
+            'id' => $id,
+            'circumference' => $circumference,
+            'area' => $area
+        ]);
+
+         /*$circumference = CircleService::circumference($radius);
         $area = CircleService::area($radius);
 
         return $this->json([
             'circle' => $circle,
             'circumference' => $circumference,
             'area' => $area
-        ]);
+        ]);*/
     }   
 }

@@ -40,7 +40,7 @@ class TriangleController extends AbstractController
         $b = $parameters['b'];
         $c = $parameters['c'];
 
-        $triangle = new Triangle();
+        $triangle = new Triangle($a, $b, $c);
         $triangle->setA($a);
         $triangle->setB($b);
         $triangle->setC($c);
@@ -60,8 +60,19 @@ class TriangleController extends AbstractController
     {
         $triangle = $this->triangleRepository->getTriangles($id);
 
+        $a = $triangle[0]['a'];
+        $b = $triangle[0]['b'];
+        $c = $triangle[0]['c'];
+
+        $triangle = new Triangle($a, $b, $c);
+        $circumference = $triangle->circumference();
+        $area = $triangle->area();
+
         return $this->json([
-            'triangle' => $triangle
+            'triangle' => $triangle,
+            'id' => $id,
+            'circumference' => $circumference,
+            'area' => $area
         ]);
     }   
 }
