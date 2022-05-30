@@ -2,19 +2,18 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Circle;
+use App\Entity\Triangle;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class CircleFixtures extends Fixture 
+class TriangleFixtures extends Fixture 
 {
     public function load(ObjectManager $manager): void
     {
         for ($i=1; $i < 30; $i++) {
-            ${'circle' . $i} = new Circle($i);
-            ${'circle' . $i}->setType('circle');
-            
-            $manager->persist(${'circle' . $i});
+            ${'triangle' . $i} = new Triangle($i, ($i + mt_rand(2, 5)), ($i + mt_rand(7, 12)));
+            ${'triangle' . $i}->setType('triangle');
+            $manager->persist(${'triangle' . $i});
 
             $manager->flush();
         }
