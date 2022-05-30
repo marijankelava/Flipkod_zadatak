@@ -32,6 +32,11 @@ class Triangle
      */
     private $c;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $type;
+
     public function __construct(float $a, float $b, float $c)
     {
         $this->a = $a;
@@ -95,4 +100,16 @@ class Triangle
 
 		return $area;
 	}
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
 }

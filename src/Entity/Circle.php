@@ -22,6 +22,11 @@ class Circle
      */
     private $radius;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $type;
+
     public function __construct(float $radius)
     {
         $this->radius = $radius;
@@ -44,13 +49,24 @@ class Circle
         return $this;
     }
 
-	public function circumference() : float
-	{
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
 
-		$circumference = 2 * pi() * $this->radius;
+    public function setType(string $type): self
+    {
+        $this->type = $type;
 
-		return $circumference;
-	}
+        return $this;
+    }
+
+    public function circumference() : float
+    {         
+    	$circumference = 2 * pi() * $this->radius;
+         
+    	return $circumference;
+ 	}
 
     public function area() : float
 	{
