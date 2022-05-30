@@ -41,6 +41,7 @@ class TriangleController extends AbstractController
         $c = $parameters['c'];
 
         $triangle = new Triangle($a, $b, $c);
+        $triangle->setType('triangle');
         $triangle->setA($a);
         $triangle->setB($b);
         $triangle->setC($c);

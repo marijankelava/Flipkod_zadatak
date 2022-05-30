@@ -38,6 +38,7 @@ class CircleController extends AbstractController
         $radius = $parameters['radius'];
 
         $circle = new Circle($radius);
+        $circle->setType('circle');
         $circumference = $circle->circumference();
         $area = $circle->area();
 
@@ -74,13 +75,14 @@ class CircleController extends AbstractController
         $circle = $this->circleRepository->getCircles($id);
 
         $radius = $circle[0]['radius'];
+        $type = $circle[0]['type'];
 
         $circle = new Circle($radius);
         $circumference = $circle->circumference();
         $area = $circle->area();
 
         return $this->json([
-            'circle' => $circle,
+            'type' => $type,
             'id' => $id,
             'circumference' => $circumference,
             'area' => $area

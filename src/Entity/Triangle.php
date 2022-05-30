@@ -4,11 +4,12 @@ namespace App\Entity;
 
 use App\Repository\TriangleRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @ORM\Entity(repositoryClass=TriangleRepository::class)
  */
-class Triangle
+class Triangle implements TriangleInterface
 {
     /**
      * @ORM\Id
@@ -85,6 +86,18 @@ class Triangle
         return $this;
     }
 
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
     public function circumference() : float
 	{
 		$circumference = $this->a + $this->b + $this->c;
@@ -100,16 +113,4 @@ class Triangle
 
 		return $area;
 	}
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
 }
