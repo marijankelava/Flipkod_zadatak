@@ -9,7 +9,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * @ORM\Entity(repositoryClass=TriangleRepository::class)
  */
-class Triangle implements TriangleInterface
+class Triangle implements CircumferenceInterface, AreaInterface
 {
     /**
      * @ORM\Id
@@ -98,14 +98,14 @@ class Triangle implements TriangleInterface
         return $this;
     }
 
-    public function circumference() : float
+    public function getCircumference() : float
 	{
 		$circumference = $this->a + $this->b + $this->c;
 
 		return $circumference;
 	}
 
-    public function area() : float
+    public function getArea() : float
 	{
 		$s = ($this->a + $this->b + $this->c)/2;
 

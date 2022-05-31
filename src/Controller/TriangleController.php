@@ -50,8 +50,8 @@ class TriangleController extends AbstractController
         $triangle = new Triangle($a, $b, $c);
 
         $triangle->setType(Triangle::class);
-        $circumference = $triangle->circumference();
-        $area = $triangle->area();
+        $circumference = $triangle->getCircumference();
+        $area = $triangle->getArea();
 
         $this->em->persist($triangle);
         $this->em->flush();
@@ -76,8 +76,8 @@ class TriangleController extends AbstractController
         $type = $triangle[0]['type'];
 
         $triangle = new Triangle($a, $b, $c);
-        $circumference = $triangle->circumference();
-        $area = $triangle->area();
+        $circumference = $triangle->getCircumference();
+        $area = $triangle->getArea();
 
         return $this->json([
             'type' => $type,
