@@ -27,7 +27,7 @@ class CircleController extends AbstractController
     /**
      * @Route("/circle/{radius}", name="app_circle", defaults={"radius"=null}, methods={"GET"})
      */
-    public function createCircle(Request $request) : JsonResponse
+    public function create(Request $request) : JsonResponse
     {
         $parameters = $request->query->all();
 
@@ -56,7 +56,7 @@ class CircleController extends AbstractController
     /**
      * @Route("/history/circle/{id}", name="history_circle", defaults={"id"=null}, methods={"GET"})
      */
-    public function getCircle(CircleService $radius, $id) : JsonResponse
+    public function show(int $id) : JsonResponse
     {
         $circle = $this->circleRepository->getCircles($id);
 

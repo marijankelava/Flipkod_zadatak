@@ -25,7 +25,7 @@ class TriangleController extends AbstractController
     /**
      * @Route("/triangle/{a}/{b}/{c}", name="app_triangle", defaults={"a"=null, "b"=null, "c"=null}, methods={"GET"})
      */
-    public function createTriangle(Request $request): JsonResponse
+    public function create(Request $request): JsonResponse
     {
         $parameters = $request->query->all();
 
@@ -59,7 +59,7 @@ class TriangleController extends AbstractController
     /**
      * @Route("/history/triangle/{id}", name="history_triangle", defaults={"id"=null}, methods={"GET"})
      */
-    public function getTriangle($id) : JsonResponse
+    public function show(int $id) : JsonResponse
     {
         $triangle = $this->triangleRepository->getTriangles($id);
 
