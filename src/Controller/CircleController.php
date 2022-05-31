@@ -16,12 +16,17 @@ class CircleController extends AbstractController
 {
     private $em;
     private $circleRepository;
-    private $serializer;
+    private $circleService;
 
-    public function __construct(CircleRepository $circleRepository, EntityManagerInterface $em)
+    public function __construct(
+        CircleRepository $circleRepository, 
+        EntityManagerInterface $em, 
+        CircleService $circleService
+        )
     {
         $this->em = $em;
         $this->circleRepository = $circleRepository;
+        $this->circleService = $circleService;
     }
     
     /**

@@ -10,16 +10,23 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Triangle;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\TriangleRepository;
+use App\Services\TriangleService;
 
 class TriangleController extends AbstractController
 {
     private $em;
     private $triangleRepository;
+    private $triangleService;
 
-    public function __construct(TriangleRepository $triangleRepository, EntityManagerInterface $em)
+    public function __construct(
+        TriangleRepository $triangleRepository, 
+        EntityManagerInterface $em, 
+        TriangleService $triangleService
+        )
     {
         $this->em = $em;
         $this->triangleRepository = $triangleRepository;
+        $this->triangleService = $triangleService;
     }
 
     /**
