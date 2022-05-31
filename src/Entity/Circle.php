@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=CircleRepository::class)
  */
-class Circle implements CircleInterface
+class Circle implements CircumferenceInterface, AreaInterface
 {
     /**
      * @ORM\Id
@@ -51,7 +51,7 @@ class Circle implements CircleInterface
 
     public function getType(): ?string
     {
-        return $this->type;
+        return __CLASS__;
     }
 
     public function setType(string $type): self
@@ -61,14 +61,14 @@ class Circle implements CircleInterface
         return $this;
     }
 
-    public function circumference() : float
+    public function getCircumference() : float
     {         
     	$circumference = 2 * pi() * $this->radius;
          
     	return $circumference;
  	}
 
-    public function area() : float
+    public function getArea() : float
 	{
 		$area = pi() * pow($this->radius, 2);
 

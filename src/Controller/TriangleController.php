@@ -41,16 +41,18 @@ class TriangleController extends AbstractController
         $c = $parameters['c'];
 
         $triangle = new Triangle($a, $b, $c);
-        $triangle->setType('triangle');
-        $triangle->setA($a);
-        $triangle->setB($b);
-        $triangle->setC($c);
+
+        $triangle->setType(Triangle::class);
+        $circumference = $triangle->circumference();
+        $area = $triangle->area();
 
         $this->em->persist($triangle);
         $this->em->flush();
 
         return $this->json([
-            'Saved new triangle with sides' => [$a, $b, $c]
+            'Saved new triangle with sides' => [$a, $b, $c],
+            'circumference' => $circumference,
+            'area' => $area
         ]);
     }
 
@@ -64,13 +66,14 @@ class TriangleController extends AbstractController
         $a = $triangle[0]['a'];
         $b = $triangle[0]['b'];
         $c = $triangle[0]['c'];
+        $type = $triangle[0]['type'];
 
         $triangle = new Triangle($a, $b, $c);
         $circumference = $triangle->circumference();
         $area = $triangle->area();
 
         return $this->json([
-            'triangle' => $triangle,
+            'type' => $type,
             'id' => $id,
             'circumference' => $circumference,
             'area' => $area
