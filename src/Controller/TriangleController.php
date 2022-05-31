@@ -8,24 +8,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Triangle;
-use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\TriangleRepository;
 use App\Services\TriangleService;
 
 class TriangleController extends AbstractController
 {
-    private $em;
-    private $triangleRepository;
     private $triangleService;
 
     public function __construct(
-        TriangleRepository $triangleRepository, 
-        EntityManagerInterface $em, 
         TriangleService $triangleService
         )
     {
-        $this->em = $em;
-        $this->triangleRepository = $triangleRepository;
         $this->triangleService = $triangleService;
     }
 
@@ -43,18 +35,12 @@ class TriangleController extends AbstractController
             exit;
         }
 
+        $triangle = $this->triangleService->create($parameters);
+        $circumference = $triangle->getCircumference();
+        $area = $triangle->getArea();
         $a = $parameters['a'];
         $b = $parameters['b'];
         $c = $parameters['c'];
-
-        $triangle = new Triangle($a, $b, $c);
-
-        $triangle->setType(Triangle::class);
-        $circumference = $triangle->getCircumference();
-        $area = $triangle->getArea();
-
-        $this->em->persist($triangle);
-        $this->em->flush();
 
         return $this->json([
             'Saved new triangle with sides' => [$a, $b, $c],

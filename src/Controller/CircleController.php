@@ -14,18 +14,12 @@ use App\Services\CircleService;
 
 class CircleController extends AbstractController
 {
-    private $em;
-    private $circleRepository;
     private $circleService;
 
     public function __construct(
-        CircleRepository $circleRepository, 
-        EntityManagerInterface $em, 
         CircleService $circleService
         )
     {
-        $this->em = $em;
-        $this->circleRepository = $circleRepository;
         $this->circleService = $circleService;
     }
     
@@ -41,15 +35,10 @@ class CircleController extends AbstractController
             exit;
         }
 
-        $radius = $parameters['radius'];
-
-        $circle = new Circle($radius);
-        $circle->setType(Circle::class);
+        $circle = $this->circleService->create($parameters);
         $circumference = $circle->getCircumference();
         $area = $circle->getArea();
-
-        $this->em->persist($circle);
-        $this->em->flush();
+        $radius = $parameters['radius'];
 
         return $this->json([
             'Saved new circle with radius value' => $radius,
