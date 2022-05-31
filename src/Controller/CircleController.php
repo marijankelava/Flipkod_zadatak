@@ -16,6 +16,7 @@ class CircleController extends AbstractController
 {
     private $em;
     private $circleRepository;
+    private $serializer;
 
     public function __construct(CircleRepository $circleRepository, EntityManagerInterface $em)
     {
@@ -96,5 +97,5 @@ class CircleController extends AbstractController
             'circumference' => $circumference,
             'area' => $area
         ]);*/
-    }   
+    }
 }

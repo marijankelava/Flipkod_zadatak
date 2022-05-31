@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=CircleRepository::class)
  */
-class Circle
+class Circle implements CircleInterface
 {
     /**
      * @ORM\Id
