@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CircleRepository;
 use App\Entity\Circle;
@@ -21,15 +20,6 @@ final class CircleService
         $this->em = $em;
         $this->circleRepository = $circleRepository;
     }
-    public static function circumference(float $radius) : float
-    {
-        return $circumference = pi() * 2 * $radius;
-    }
-
-    public static function area(float $radius) : float
-    {
-        return $area = pow(2, $radius) * pi();
-    }
 
     public function create(array $parameters) : Circle
     {
@@ -40,6 +30,13 @@ final class CircleService
 
         $this->em->persist($circle);
         $this->em->flush();
+
+        return $circle;
+    }
+
+    public function show($id)
+    {
+        $circle = $this->circleRepository->getCircles($id);
 
         return $circle;
     }

@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Triangle;
 use App\Services\TriangleService;
+use App\Repository\TriangleRepository;
 
 class TriangleController extends AbstractController
 {
@@ -52,22 +53,29 @@ class TriangleController extends AbstractController
     /**
      * @Route("/history/triangle/{id}", name="history_triangle", defaults={"id"=null}, methods={"GET"})
      */
-    public function show(int $id) : JsonResponse
+    public function show($id) : JsonResponse
     {
-        $triangle = $this->triangleRepository->getTriangles($id);
+        //$triangle = $this->triangleRepository->getTriangles($id);
 
-        $a = $triangle[0]['a'];
-        $b = $triangle[0]['b'];
-        $c = $triangle[0]['c'];
-        $type = $triangle[0]['type'];
+        $triangles = $this->triangleService->show($id);
 
-        $triangle = new Triangle($a, $b, $c);
-        $circumference = $triangle->getCircumference();
-        $area = $triangle->getArea();
+        dd($triangles);
+
+        foreach($triangles as $triangle){
+            $type = $triangle->getType();
+            $a = $this->triangle->getA();
+            $b = $this->triangle->getB();
+            $c = $this->triangle->getC();
+            $circumference = $triangle->getCircumference();
+            $area = $triangle->getArea();
+        }    
 
         return $this->json([
             'type' => $type,
             'id' => $id,
+            'a' => $a,
+            'b' => $b,
+            'c' => $c,
             'circumference' => $circumference,
             'area' => $area
         ]);

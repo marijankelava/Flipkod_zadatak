@@ -50,22 +50,27 @@ class CircleController extends AbstractController
     /**
      * @Route("/history/circle/{id}", name="history_circle", defaults={"id"=null}, methods={"GET"})
      */
-    public function show(int $id) : JsonResponse
+    public function show($id) : JsonResponse
     {
-        $circle = $this->circleRepository->getCircles($id);
+        //$circle = $this->circleRepository->getCircles();
 
-        $radius = $circle[0]['radius'];
-        $type = $circle[0]['type'];
+        $circles = $this->circleService->show($id);
 
-        $circle = new Circle($radius);
-        $circumference = $circle->getCircumference();
-        $area = $circle->getArea();
+        dd($circles);
 
-        return $this->json([
-            'type' => $type,
-            'id' => $id,
-            'circumference' => $circumference,
-            'area' => $area
-        ]);
+        foreach($circles as $circle){
+            $radius = $circle->getRadius();
+            $type = $circle->getType();
+            $circumference = $circle->getCircumference();
+            $area = $circle->getArea();
+        }    
+
+            return $this->json([
+                'type' => $type,
+                'id' => $id,
+                'radius' => $radius,
+                'circumference' => $circumference,
+                'area' => $area
+            ]);
     }
 }

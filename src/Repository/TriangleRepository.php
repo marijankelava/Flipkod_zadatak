@@ -92,7 +92,7 @@ class TriangleRepository extends ServiceEntityRepository
                ->setParameter('id', $id);  
         }
         
-        return $qb->getQuery()->getResult(Query::HYDRATE_ARRAY);
+        return $qb->getQuery()->getResult();
 
         //return $qb->setMaxResults($parameters['per_page'])->setFirstResult(0)->getQuery()->getResult(Query::HYDRATE_ARRAY);
     }
