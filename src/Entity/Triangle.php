@@ -2,9 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\TriangleRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @ORM\Entity(repositoryClass=TriangleRepository::class)
