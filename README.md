@@ -16,8 +16,7 @@ Checkout master branch
  - run commands:
     `composer install` ,
     `php bin/console do:sc:dr --force`,
-    `php bin/console do:sc:cr`,
-    `php bin/console assets:install`
+    `php bin/console do:sc:cr`
 
 
 ## Default database credentials:
