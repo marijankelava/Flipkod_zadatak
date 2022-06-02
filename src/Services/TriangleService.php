@@ -20,12 +20,8 @@ final class TriangleService
         $this->triangleRepository = $triangleRepository;
     }
 
-    public function create(array $parameters) : Triangle
+    public function create(float $a, float $b, float $c) : Triangle
     {
-        $a = $parameters['a'];
-        $b = $parameters['b'];
-        $c = $parameters['c'];
-
         $triangle = new Triangle($a, $b, $c);
         $triangle->setType(Triangle::class);
 

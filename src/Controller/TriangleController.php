@@ -26,14 +26,29 @@ final class TriangleController extends AbstractController
     {
         $parameters = $request->query->all();
 
-        //dd($parameters);
+        $a = $parameters['a'] ?? null;
+        $b = $parameters['b'] ?? null;
+        $c = $parameters['c'] ?? null;
 
-        if (!isset($parameters['a'], $parameters['b'], $parameters['c'])) {
-            echo "Please enter triangle side values";
-            exit;
+        $error = [];
+
+        if ($a === null || $b === null || $c === null) {
+            $error = [
+                'success' => false,
+                'error' => 'Please enter triangle side values'
+            ];
+        }elseif(!is_numeric($parameters['a']) || !is_numeric($parameters['b']) || !is_numeric($parameters['c'])){
+            $error = [
+                'success' => false,
+                'error' => 'Please enter correct values'
+            ];            
         }
 
-        $triangle = $this->triangleService->create($parameters);
+        if (count($error)) {
+            return $this->json($error);
+        }
+
+        $triangle = $this->triangleService->create($a, $b, $c);
         $circumference = $triangle->getCircumference();
         $area = $triangle->getArea();
         $a = $parameters['a'];

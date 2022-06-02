@@ -43,7 +43,7 @@ final class CircleController extends AbstractController
         if (count($error)) {
             return $this->json($error);
         }
-        
+
         $radius = (float) $radiusParam;
         $circle = $this->circleService->create($radius);
         $circumference = $circle->getCircumference();
