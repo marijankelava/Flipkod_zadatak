@@ -3,31 +3,26 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Doctrine\ORM\EntityManagerInterface;
-use App\Entity\Circle;
-use App\Repository\CircleRepository;
 use App\Services\CircleService;
 
-class CircleController extends AbstractController
+final class CircleController extends AbstractController
 {
-    private $em;
-    private $circleRepository;
-    private $serializer;
+    private CircleService $circleService;
 
-    public function __construct(CircleRepository $circleRepository, EntityManagerInterface $em)
+    public function __construct(
+        CircleService $circleService
+        )
     {
-        $this->em = $em;
-        $this->circleRepository = $circleRepository;
+        $this->circleService = $circleService;
     }
     
     /**
      * @Route("/circle/{radius}", name="app_circle", defaults={"radius"=null}, methods={"GET"})
      */
-    public function createCircle(Request $request) : JsonResponse
+    public function create(Request $request) : JsonResponse
     {
         $parameters = $request->query->all();
 
@@ -36,15 +31,10 @@ class CircleController extends AbstractController
             exit;
         }
 
-        $radius = $parameters['radius'];
-
-        $circle = new Circle($radius);
-        $circle->setType(Circle::class);
+        $circle = $this->circleService->create($parameters);
         $circumference = $circle->getCircumference();
         $area = $circle->getArea();
-
-        $this->em->persist($circle);
-        $this->em->flush();
+        $radius = $parameters['radius'];
 
         return $this->json([
             'Saved new circle with radius value' => $radius,
@@ -56,22 +46,26 @@ class CircleController extends AbstractController
     /**
      * @Route("/history/circle/{id}", name="history_circle", defaults={"id"=null}, methods={"GET"})
      */
-    public function getCircle(CircleService $radius, $id) : JsonResponse
+    public function show($id) : JsonResponse
     {
-        $circle = $this->circleRepository->getCircles($id);
 
-        $radius = $circle[0]['radius'];
-        $type = $circle[0]['type'];
+        $circles = $this->circleService->show($id);
 
-        $circle = new Circle($radius);
-        $circumference = $circle->getCircumference();
-        $area = $circle->getArea();
+        //dd($circles);
 
-        return $this->json([
-            'type' => $type,
-            'id' => $id,
-            'circumference' => $circumference,
-            'area' => $area
-        ]);
+        foreach($circles as $circle){
+            $radius = $circle->getRadius();
+            $type = $circle->getType();
+            $circumference = $circle->getCircumference();
+            $area = $circle->getArea();
+
+            $json[] = [
+                'type' => $type,
+                'radius' => $radius,
+                'circumference' => $circumference,
+                'area' => $area 
+            ];
+        }    
+            return $this->json($json);
     }
 }

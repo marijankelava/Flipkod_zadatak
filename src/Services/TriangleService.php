@@ -2,17 +2,43 @@
 
 namespace App\Services;
 
-use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Triangle;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\TriangleRepository;
 
 final class TriangleService
 {
-    public static function circumference(float $radius) : float
+    private EntityManagerInterface $em;
+    private TriangleRepository $triangleRepository;
+
+    public function __construct(
+        TriangleRepository $triangleRepository, 
+        EntityManagerInterface $em
+        )
     {
-        return $circumference = pi() * 2 * $radius;
+        $this->em = $em;
+        $this->triangleRepository = $triangleRepository;
     }
 
-    public static function area(float $radius) : float
+    public function create(array $parameters) : Triangle
     {
-        return $area = pow(2, $radius) * pi();
+        $a = $parameters['a'];
+        $b = $parameters['b'];
+        $c = $parameters['c'];
+
+        $triangle = new Triangle($a, $b, $c);
+        $triangle->setType(Triangle::class);
+
+        $this->em->persist($triangle);
+        $this->em->flush();
+
+        return $triangle;
+    }
+
+    public function show(?int $id) 
+    {
+        $data = $this->triangleRepository->getTriangles($id);
+
+        return $data;
     }
 }

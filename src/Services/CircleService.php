@@ -2,17 +2,41 @@
 
 namespace App\Services;
 
-use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\CircleRepository;
+use App\Entity\Circle;
 
 final class CircleService
 {
-    public static function circumference(float $radius) : float
+    private EntityManagerInterface $em;
+    private CircleRepository $circleRepository;
+
+    public function __construct(
+        CircleRepository $circleRepository, 
+        EntityManagerInterface $em
+        )
     {
-        return $circumference = pi() * 2 * $radius;
+        $this->em = $em;
+        $this->circleRepository = $circleRepository;
     }
 
-    public static function area(float $radius) : float
+    public function create(array $parameters) : Circle
     {
-        return $area = pow(2, $radius) * pi();
+        $radius = $parameters['radius'];
+
+        $circle = new Circle($radius);
+        $circle->setType(Circle::class);
+
+        $this->em->persist($circle);
+        $this->em->flush();
+
+        return $circle;
+    }
+
+    public function show(?int $id)
+    {
+        $data = $this->circleRepository->getCircles($id);
+
+        return $data;
     }
 }
