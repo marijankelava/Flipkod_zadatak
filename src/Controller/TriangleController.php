@@ -48,12 +48,14 @@ final class TriangleController extends AbstractController
             return $this->json($error);
         }
 
+        $a = (float) $a;
+        $b = (float) $b;
+        $c = (float) $c;
+
         $triangle = $this->triangleService->create($a, $b, $c);
         $circumference = $triangle->getCircumference();
         $area = $triangle->getArea();
-        $a = $parameters['a'];
-        $b = $parameters['b'];
-        $c = $parameters['c'];
+
 
         return $this->json([
             'Saved new triangle with sides' => [$a, $b, $c],
