@@ -9,7 +9,7 @@ Enter to project folder `cd your-project`
 Checkout master branch
 
 ## Docker Setup
- - create docker-compose.yml and copy contents of docker-compose.yml.dist
+ - create .env and copy contents of env.local
  - build docker containers `docker-compose build`
  - run `docker-compose up -d` to build up the containers 
  - login to `flipkod_zadatak_web` container `docker exec -it flipkod_zadatak_web bash` 
