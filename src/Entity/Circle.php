@@ -14,17 +14,17 @@ final class Circle implements CircumferenceInterface, AreaInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $radius;
+    private float $radius;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $type;
+    private string $type;
 
     public function __construct(float $radius)
     {

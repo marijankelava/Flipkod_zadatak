@@ -14,27 +14,27 @@ final class Triangle implements CircumferenceInterface, AreaInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $a;
+    private float $a;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $b;
+    private float $b;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $c;
+    private float $c;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $type;
+    private string $type;
 
     public function __construct(float $a, float $b, float $c)
     {
