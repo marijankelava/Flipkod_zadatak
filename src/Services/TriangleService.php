@@ -8,7 +8,7 @@ use App\Repository\TriangleRepository;
 
 final class TriangleService
 {
-    private $em;
+    private EntityManagerInterface $em;
     private TriangleRepository $triangleRepository;
 
     public function __construct(
@@ -35,10 +35,10 @@ final class TriangleService
         return $triangle;
     }
 
-    public function show(?int $id)
+    public function show(?int $id) 
     {
-        $triangle = $this->triangleRepository->getTriangles($id);
+        $data = $this->triangleRepository->getTriangles($id);
 
-        return $triangle;
+        return $data;
     }
 }

@@ -9,7 +9,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * @ORM\Entity(repositoryClass=TriangleRepository::class)
  */
-class Triangle implements CircumferenceInterface, AreaInterface
+final class Triangle implements CircumferenceInterface, AreaInterface
 {
     /**
      * @ORM\Id

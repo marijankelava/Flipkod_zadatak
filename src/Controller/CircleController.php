@@ -3,18 +3,14 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Doctrine\ORM\EntityManagerInterface;
-use App\Entity\Circle;
-use App\Repository\CircleRepository;
 use App\Services\CircleService;
 
-class CircleController extends AbstractController
+final class CircleController extends AbstractController
 {
-    private $circleService;
+    private CircleService $circleService;
 
     public function __construct(
         CircleService $circleService

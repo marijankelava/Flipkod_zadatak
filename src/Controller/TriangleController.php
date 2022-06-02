@@ -5,15 +5,12 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Triangle;
 use App\Services\TriangleService;
-use App\Repository\TriangleRepository;
 
-class TriangleController extends AbstractController
+final class TriangleController extends AbstractController
 {
-    private $triangleService;
+    private TriangleService $triangleService;
 
     public function __construct(
         TriangleService $triangleService

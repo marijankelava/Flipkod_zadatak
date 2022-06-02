@@ -8,9 +8,8 @@ use App\Entity\Circle;
 
 final class CircleService
 {
-    private $em;
-    private $circleRepository;
-    private $circleService;
+    private EntityManagerInterface $em;
+    private CircleRepository $circleRepository;
 
     public function __construct(
         CircleRepository $circleRepository, 
@@ -34,10 +33,10 @@ final class CircleService
         return $circle;
     }
 
-    public function show($id)
+    public function show(?int $id)
     {
-        $circle = $this->circleRepository->getCircles($id);
+        $data = $this->circleRepository->getCircles($id);
 
-        return $circle;
+        return $data;
     }
 }
