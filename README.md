@@ -6,7 +6,7 @@ This simple app calculates circumference and area of circle and triangle
 
 Clone repository `git clone https://gitlab.com/marijan-kelava/flipkod_zadatak.git your-project`
 Enter to project folder `cd your-project`
-Checkout master branch
+Checkout to master branch
 
 ## Docker Setup
  - create .env and copy contents of env.local
