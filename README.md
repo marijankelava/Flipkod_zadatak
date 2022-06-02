@@ -1,4 +1,4 @@
-Symfony Flipkod
+Flipkod_zadatak
 
 This simple app calculates circumference and area of circle and triangle
 
@@ -12,9 +12,9 @@ Checkout master branch
 Docker Setup
 Create docker-compose.yml and copy contents of docker-compose.yml.dist
 Build docker containers `docker-compose build`
-Run 'docker-compose up -d' to build up the containers (flipkod_zadatak_web/flipkod_zadatak_db/flipkod_zadatak_adm).
+Run `docker-compose up -d` to build up the containers (flipkod_zadatak_web/flipkod_zadatak_db/flipkod_zadatak_adm).
 
-After that, login to sf_web container 'docker exec -it flipkod_zadatak_web bash', and run ./setup.sh which will install php dependencies and create db schema.
+After that, login to `flipkod_zadatak_web` container `docker exec -it flipkod_zadatak_web bash`, and run `./setup.sh` which will install php dependencies and create db schema.
 
 setup.sh needs to be executable
 
@@ -35,7 +35,7 @@ http://localhost:8888/triangle?a= &b= &c=
 
 Sample Response
 JSON
-{ "type": "id": "radius": "circumference": "area", }
+{ "type": "radius": "circumference": "area", }
 
 
 
