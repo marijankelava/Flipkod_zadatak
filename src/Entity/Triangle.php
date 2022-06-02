@@ -88,7 +88,7 @@ class Triangle implements CircumferenceInterface, AreaInterface
 
     public function getType(): ?string
     {
-        return $this->type;
+        return __CLASS__;
     }
 
     public function setType(string $type): self

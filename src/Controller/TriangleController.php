@@ -55,29 +55,28 @@ class TriangleController extends AbstractController
      */
     public function show($id) : JsonResponse
     {
-        //$triangle = $this->triangleRepository->getTriangles($id);
-
         $triangles = $this->triangleService->show($id);
 
-        dd($triangles);
+        //dd($triangles);
 
         foreach($triangles as $triangle){
             $type = $triangle->getType();
-            $a = $this->triangle->getA();
-            $b = $this->triangle->getB();
-            $c = $this->triangle->getC();
+            $a = $triangle->getA();
+            $b = $triangle->getB();
+            $c = $triangle->getC();
             $circumference = $triangle->getCircumference();
             $area = $triangle->getArea();
+
+            $json[] = [
+                'type' => $type,
+                'a' => $a,
+                'b' => $b,
+                'c' => $c,
+                'circumference' => $circumference,
+                'area' => $area 
+            ];
         }    
 
-        return $this->json([
-            'type' => $type,
-            'id' => $id,
-            'a' => $a,
-            'b' => $b,
-            'c' => $c,
-            'circumference' => $circumference,
-            'area' => $area
-        ]);
+        return $this->json($json);
     }   
 }

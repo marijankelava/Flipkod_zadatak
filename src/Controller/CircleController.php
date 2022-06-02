@@ -52,25 +52,24 @@ class CircleController extends AbstractController
      */
     public function show($id) : JsonResponse
     {
-        //$circle = $this->circleRepository->getCircles();
 
         $circles = $this->circleService->show($id);
 
-        dd($circles);
+        //dd($circles);
 
         foreach($circles as $circle){
             $radius = $circle->getRadius();
             $type = $circle->getType();
             $circumference = $circle->getCircumference();
             $area = $circle->getArea();
-        }    
 
-            return $this->json([
+            $json[] = [
                 'type' => $type,
-                'id' => $id,
                 'radius' => $radius,
                 'circumference' => $circumference,
-                'area' => $area
-            ]);
+                'area' => $area 
+            ];
+        }    
+            return $this->json($json);
     }
 }
