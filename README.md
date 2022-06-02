@@ -1,34 +1,36 @@
-Flipkod_zadatak
+# Flipkod Zadatak
 
 This simple app calculates circumference and area of circle and triangle
 
-Installation
-cd your-app-folder
+## Installation
 
-Clone repository 'git clone https://gitlab.com/marijan-kelava/flipkod_zadatak.git'
-
+Clone repository `git clone https://gitlab.com/marijan-kelava/flipkod_zadatak.git`
+Enter to project folder `cd your-project-name`
 Checkout master branch
 
-Docker Setup
-Create docker-compose.yml and copy contents of docker-compose.yml.dist
-Build docker containers `docker-compose build`
-Run `docker-compose up -d` to build up the containers (flipkod_zadatak_web/flipkod_zadatak_db/flipkod_zadatak_adm).
+## Docker Setup
+ - create docker-compose.yml and copy contents of docker-compose.yml.dist
+ - build docker containers `docker-compose build`
+ - run `docker-compose up -d` to build up the containers 
+ - login to `flipkod_zadatak_web` container `docker exec -it flipkod_zadatak_web bash` 
+ - run commands:
+    `composer install` ,
+    `php bin/console do:sc:dr --force`,
+    `php bin/console do:sc:cr`,
+    `php bin/console assets:install`
 
-After that, login to `flipkod_zadatak_web` container `docker exec -it flipkod_zadatak_web bash`, and run `./setup.sh` which will install php dependencies and create db schema.
 
-setup.sh needs to be executable
+## Default database credentials:
+ - server: flipkod_zadatak_db
+ - username: user
+ - password: user
+ - database: db
 
-Default database credentials:
-Server: flipkod_zadatak_db
-Username: user
-Password: user
-Database: db
-
-Request URL
+## Request URL
 http://localhost:8888/history/circle/{id}
 http://localhost:8888/history/triangle/{id}
 
-Request URL (create method)
+## Request URL (create method)
 http://localhost:8888/circle?radius=
 http://localhost:8888/triangle?a= &b= &c=
 
