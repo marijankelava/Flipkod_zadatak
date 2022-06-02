@@ -20,10 +20,8 @@ final class CircleService
         $this->circleRepository = $circleRepository;
     }
 
-    public function create(array $parameters) : Circle
+    public function create(float $radius) : Circle
     {
-        $radius = $parameters['radius'];
-
         $circle = new Circle($radius);
         $circle->setType(Circle::class);
 

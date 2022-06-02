@@ -25,16 +25,29 @@ final class CircleController extends AbstractController
     public function create(Request $request) : JsonResponse
     {
         $parameters = $request->query->all();
+        $radiusParam = $parameters['radius'] ?? null;
+        $error = [];
 
-        if (!isset($parameters['radius'])) {
-            echo "Please enter radius value";
-            exit;
+        if ($radiusParam === null || strlen($radiusParam) === 0) {
+            $error = [
+                'success' => false,
+                'error' => 'Radius is required'
+            ];
+        }elseif(!is_numeric($radiusParam)){
+            $error = [
+                'success' => false,
+                'error' => 'Radius is not formatted correctly'
+            ];            
         }
 
-        $circle = $this->circleService->create($parameters);
+        if (count($error)) {
+            return $this->json($error);
+        }
+        
+        $radius = (float) $radiusParam;
+        $circle = $this->circleService->create($radius);
         $circumference = $circle->getCircumference();
         $area = $circle->getArea();
-        $radius = $parameters['radius'];
 
         return $this->json([
             'Saved new circle with radius value' => $radius,
