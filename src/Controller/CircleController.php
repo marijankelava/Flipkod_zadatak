@@ -63,9 +63,8 @@ final class CircleController extends AbstractController
     {
 
         $circles = $this->circleService->show($id);
-
-        //dd($circles);
-
+        $json = [];
+        
         foreach($circles as $circle){
             $radius = $circle->getRadius();
             $type = $circle->getType();
@@ -79,6 +78,7 @@ final class CircleController extends AbstractController
                 'area' => $area 
             ];
         }    
-            return $this->json($json);
+        
+        return $this->json($json);
     }
 }

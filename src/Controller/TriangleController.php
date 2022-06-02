@@ -70,9 +70,8 @@ final class TriangleController extends AbstractController
     public function show(?int $id) : JsonResponse
     {
         $triangles = $this->triangleService->show($id);
-
-        //dd($triangles);
-
+        $json = [];
+        
         foreach($triangles as $triangle){
             $type = $triangle->getType();
             $a = $triangle->getA();
