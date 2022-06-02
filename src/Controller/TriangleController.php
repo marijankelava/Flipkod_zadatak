@@ -53,7 +53,7 @@ class TriangleController extends AbstractController
     /**
      * @Route("/history/triangle/{id}", name="history_triangle", defaults={"id"=null}, methods={"GET"})
      */
-    public function show($id) : JsonResponse
+    public function show(?int $id) : JsonResponse
     {
         $triangles = $this->triangleService->show($id);
 

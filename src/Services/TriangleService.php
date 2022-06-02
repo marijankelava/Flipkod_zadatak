@@ -35,7 +35,7 @@ final class TriangleService
         return $triangle;
     }
 
-    public function show($id)
+    public function show(?int $id)
     {
         $triangle = $this->triangleRepository->getTriangles($id);
 

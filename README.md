@@ -31,13 +31,13 @@ http://localhost:8888/history/circle/{id}
 http://localhost:8888/history/triangle/{id}
 
 ## Request URL (create method)
-http://localhost:8888/circle?radius=
-http://localhost:8888/triangle?a= &b= &c=
+http://localhost:8888/circle?radius=3
+http://localhost:8888/triangle?a=4&b=5&c=6
 
 
-Sample Response
+## Sample Response
 JSON
-{ "type": "radius": "circumference": "area", }
+{ "type": "cicrcle", "radius": "3" "circumference": "12" "area": "10" }
 
 
 
