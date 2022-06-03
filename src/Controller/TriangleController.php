@@ -44,6 +44,13 @@ final class TriangleController extends AbstractController
             ];            
         }
 
+        if (($a + $b <= $c) || ($a + $c <= $b) || ($b + $c <= $a)) {
+            $error = [
+                'succes' => false,
+                'error' => 'Sum of two triangle sides must be greater then the third side'
+            ];
+        }
+
         if (count($error)) {
             return $this->json($error);
         }
